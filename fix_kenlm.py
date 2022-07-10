@@ -1,7 +1,15 @@
 import os
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+
+parser.add_argument("--arpa-file-in", default="uk_wiki.arpa")
+parser.add_argument("--arpa-file-out", default="uk_wiki_corrected.arpa")
+
+args = parser.parse_args()
 
 def run():
-    with open("uk_wiki.arpa", "r") as read_file, open("uk_wiki_correct.arpa", "w") as write_file:
+    with open(args.arpa_file_in, "r") as read_file, open(args.arpa_file_out, "w") as write_file:
         has_added_eos = False
         for line in read_file:
             if not has_added_eos and "ngram 1=" in line:
@@ -14,7 +22,5 @@ def run():
             else:
                 write_file.write(line)
     
-    os.remove('uk_wiki.arpa')
-
 if __name__ == '__main__':
     run()
