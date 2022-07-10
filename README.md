@@ -29,3 +29,37 @@ On the page, find the "Recombine all pages, current versions only." link and dow
 ```bash
 python extract_text_from_dump.py ukwiki-20220701-pages-meta-current.xml > uncleaned_text.txt
 ```
+
+### Step 5: Clean `uncleaned_text.txt` file
+
+```bash
+python cleaner.py --corpus-path uncleaned_text.txt --corpus-clean cleaned_text.txt --n-workers 5 --min-words 2
+```
+
+### Install KenLM
+
+```bash
+sudo apt install build-essential cmake libboost-system-dev libboost-thread-dev libboost-program-options-dev libboost-test-dev libeigen3-dev zlib1g-dev libbz2-dev liblzma-dev
+
+wget -O - https://kheafield.com/code/kenlm.tar.gz | tar xz
+
+mkdir kenlm/build && cd kenlm/build && cmake .. && make -j2
+```
+
+### Build a KenLM in the ARPA format
+
+```bash
+kenlm/build/bin/lmplz -o 5 < "cleaned_text.txt" > "uk_wiki.arpa"
+```
+
+### Fix a KenLM model
+
+```bash
+python fix_kenlm.py --arpa-file-in uk_wiki.arpa --arpa-file-out uk_wiki_corrected.arpa
+```
+
+### Build a KenLM in the binary format
+
+```bash
+kenlm/build/bin/build_binary uk_wiki_corrected.arpa uk_wiki_corrected.bin
+```
