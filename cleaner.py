@@ -7,7 +7,7 @@ Source code of the tokenizer is borrowed from https://github.com/lang-uk/tokeniz
 import re
 import unicodedata
 import regex as re
-from typing import List
+from typing import List, Tuple, Dict
 
 from argparse import ArgumentParser
 from tqdm import tqdm
@@ -317,7 +317,7 @@ class UkrainianWordTokenizer:
 
         return token_list
 
-    def adjust_text_for_tokenizing(self, text: str) -> tuple[str, dict[str, str]]:
+    def adjust_text_for_tokenizing(self, text: str) -> Tuple[str, Dict[str, str]]:
         urls: dict[str, str] = {}
         text = self.cleanup(text)
 
