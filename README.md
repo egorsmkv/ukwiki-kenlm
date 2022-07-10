@@ -14,7 +14,7 @@ pip install mwxml tqdm
 
 ## Steps
 
-### Step 1: Find the latest backup snapshot
+### Step 1: Find the latest backup for Ukrainian Wikipedia data
 
 Go to https://dumps.wikimedia.org/backup-index.html and find the "ukwiki: Dump complete" line. Follow the "ukwiki" link.
 
