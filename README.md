@@ -9,7 +9,7 @@ You need Python 3 and pip for text processing.
 ### Libraries
 
 ```bash
-pip install mwxml
+pip install mwxml tqdm
 ```
 
 ## Steps
